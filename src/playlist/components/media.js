@@ -1,19 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import './media.css';
 
-class Media extends Component {
+class Media extends PureComponent {
   render() {
-    const {
-      image,
-      title,
-      author,
-    } = this.props;
+    const { cover, title, author } = this.props;
     return (
       <div className="Media">
         <div className="Media-cover">
           <img
-            src={image}
+            src={cover}
             alt=""
             width={260}
             height={160}
@@ -28,7 +24,7 @@ class Media extends Component {
 }
 
 Media.propTypes = {
-  image: PropTypes.string,
+  cover: PropTypes.string,
   title: PropTypes.string.isRequired,
   author: PropTypes.string,
   type: PropTypes.oneOf(['audio', 'video']),

@@ -1,15 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Media from './src/playlist/components/media';
+import Playlist from './src/playlist/components/playlist';
+import data from './src/api.json';
 
 const app = document.getElementById('app');
 
-render(
-  <Media
-    title="Que es responsive design?"
-    author="Oscar Zambrano"
-    image="./images/covers/responsive.jpg"
-    type="video"
-  />
-  , app);
+render(<Playlist data={data} />, app);
 // render(que va renderizar, donde lo va a renderizar);
