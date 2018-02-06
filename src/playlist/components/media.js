@@ -4,9 +4,14 @@ import './media.css';
 
 class Media extends PureComponent {
   render() {
-    const { cover, title, author } = this.props;
+    const {
+      cover,
+      title,
+      author,
+      handleClick,
+    } = this.props;
     return (
-      <div className="Media">
+      <div className="Media" onClick={handleClick}>
         <div className="Media-cover">
           <img
             src={cover}
@@ -28,6 +33,7 @@ Media.propTypes = {
   title: PropTypes.string.isRequired,
   author: PropTypes.string,
   type: PropTypes.oneOf(['audio', 'video']),
+  handleClick: PropTypes.func.isRequired,
 }
 
 export default Media;

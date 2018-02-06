@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Category from './category';
 import './categories.css';
 
 function Categories(props) {
   const {
     categories,
+    handleOpenModal,
   } = props;
   return (
     <div className="Categories">
@@ -14,6 +16,7 @@ function Categories(props) {
             <Category
               key={item.id}
               {...item}
+              handleOpenModal={handleOpenModal}
             />
           )
         })
@@ -21,5 +24,10 @@ function Categories(props) {
     </div>
   );
 }
+
+Categories.propTypes = {
+  categories: PropTypes.array.isRequired,
+  handleOpenModal: PropTypes.func.isRequired,
+};
 
 export default Categories;
