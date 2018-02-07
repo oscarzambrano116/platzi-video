@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import './modal.css';
 
 function Modal(props) {
+  const {
+    children,
+    handleClick,
+  } = props;
   return (
     <div className="Modal">
-      {props.children}
-      <button onClick={props.handleClick}>cerrar</button>
+      {children}
+      <button onClick={handleClick}>cerrar</button>
     </div>
   );
 }

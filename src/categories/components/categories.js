@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Category from './category';
+import SearchContainer from '../../widgets/containers/search';
 import './categories.css';
 
 function Categories(props) {
@@ -10,6 +11,7 @@ function Categories(props) {
   } = props;
   return (
     <div className="Categories">
+      <SearchContainer />
       {
         categories.map((item) => {
           return (
