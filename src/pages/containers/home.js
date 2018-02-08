@@ -44,7 +44,7 @@ class Home extends Component {
       <HandleError>
         <HomeLayout>
           <Related />
-          <VideoPlayer />
+          <VideoPlayer autoPlay />
           <Categories
             categories={categories}
             handleOpenModal={this.handleOpenModal}
