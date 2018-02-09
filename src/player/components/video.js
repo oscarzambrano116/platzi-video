@@ -8,11 +8,15 @@ class Video extends Component {
 
   tooglePlay = () => {
     const { pause } = this.props;
-    pause ? this.video.play() : this.video.pause();
+    if (pause) {
+      this.video.play();
+    } else {
+      this.video.pause();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { pause } = this.props.pause;
+    const { pause } = this.props;
     if (nextProps.pause !== pause) {
       this.tooglePlay();
     }
@@ -23,6 +27,7 @@ class Video extends Component {
       autoPlay,
       pause,
       src,
+      handleLoadedMetadata,
     } = this.props;
     return (
       <div className="Video">
@@ -30,6 +35,7 @@ class Video extends Component {
           autoPlay={autoPlay}
           src={src}
           ref={this.setRef}
+          onLoadedMetadata={handleLoadedMetadata}
         />
       </div>
     );
