@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { formattedTime } from '../../utils/helper';
 import VideoPlayerLayout from '../components/video-player-layout';
 import Video from '../components/video';
 import Title from '../components/title';
 import PlayPause from '../components/play-pause';
 import Timer from '../components/timer';
 import Controls from '../components/video-player-controls';
+import ProgressBar from '../components/progress-bar';
 
 class VideoPlayer extends Component {
   state = {
@@ -23,17 +23,19 @@ class VideoPlayer extends Component {
 
   handleLoadedMetadata = (event) => {
     this.video = event.target;
-    const duration = formattedTime(this.video.duration);
     this.setState({
-      duration,
+      duration: this.video.duration,
     });
   }
 
   handleTimeUpdate = (event) => {
-    const currentTime = formattedTime(this.video.currentTime);
     this.setState({
-      currentTime,
+      currentTime: this.video.currentTime,
     });
+  }
+
+  handleProgressChange = (event) => {
+    this.video.currentTime = event.target.value;
   }
 
   componentDidMount() {
@@ -63,6 +65,11 @@ class VideoPlayer extends Component {
           <Timer
             currentTime={currentTime}
             duration={duration}
+          />
+          <ProgressBar
+            duration={duration}
+            value={currentTime}
+            handleProgressChange={this.handleProgressChange}
           />
         </Controls>
         <Video
