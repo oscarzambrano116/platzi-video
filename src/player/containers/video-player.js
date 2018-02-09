@@ -10,6 +10,7 @@ class VideoPlayer extends Component {
   state = {
     pause: true,
     duration: 0,
+    currentTime: 0,
   };
 
   toggleClick = () => {
@@ -26,6 +27,12 @@ class VideoPlayer extends Component {
     });
   }
 
+  handleTimeUpdate = (event) => {
+    this.setState({
+      currentTime: this.video.currentTime,
+    });
+  }
+
   componentDidMount() {
     const { autoPlay } = this.props;
     this.setState({
@@ -34,7 +41,11 @@ class VideoPlayer extends Component {
   }
 
   render() {
-    const { pause, duration } = this.state;
+    const {
+      pause,
+      duration,
+      currentTime,
+    } = this.state;
     const { autoPlay } = this.props;
     return (
       <VideoPlayerLayout>
@@ -47,6 +58,7 @@ class VideoPlayer extends Component {
             handleClick={this.toggleClick}
           />
           <Timer
+            currentTime={currentTime}
             duration={duration}
           />
         </Controls>
@@ -55,6 +67,7 @@ class VideoPlayer extends Component {
           pause={pause}
           src={'http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4'}
           handleLoadedMetadata={this.handleLoadedMetadata}
+          handleTimeUpdate={this.handleTimeUpdate}
         />
       </VideoPlayerLayout>
     );
