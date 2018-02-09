@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { formattedTime } from '../../utils/helper';
 import VideoPlayerLayout from '../components/video-player-layout';
 import Video from '../components/video';
 import Title from '../components/title';
@@ -22,14 +23,16 @@ class VideoPlayer extends Component {
 
   handleLoadedMetadata = (event) => {
     this.video = event.target;
+    const duration = formattedTime(this.video.duration);
     this.setState({
-      duration: this.video.duration
+      duration,
     });
   }
 
   handleTimeUpdate = (event) => {
+    const currentTime = formattedTime(this.video.currentTime);
     this.setState({
-      currentTime: this.video.currentTime,
+      currentTime,
     });
   }
 
