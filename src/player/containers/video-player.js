@@ -8,6 +8,7 @@ import Controls from '../components/video-player-controls';
 import ProgressBar from '../components/progress-bar';
 import Spinner from '../components/spinner';
 import Volume from '../components/volume';
+import FullScreen from '../components/full-screen';
 
 class VideoPlayer extends Component {
   state = {
@@ -16,7 +17,7 @@ class VideoPlayer extends Component {
     currentTime: 0,
     loading: false,
     volume: 1,
-    volumeIsMuted: false,
+    volumeIsMute: false,
     prevVolume: 0,
   };
 
@@ -63,28 +64,40 @@ class VideoPlayer extends Component {
     });
   }
 
-  checkVolumeIsMuted = () => {
+  checkVolumeIsMute = () => {
     const {
-      volumeIsMuted,
+      volumeIsMute,
       prevVolume,
     } = this.state;
-    const checkMuted = !volumeIsMuted;
-    if (checkMuted) {
+    const checkMute = !volumeIsMute;
+    if (checkMute) {
       this.setState({
         prevVolume: this.video.volume,
-        volumeIsMuted: !volumeIsMuted,
+        volumeIsMute: !volumeIsMute,
         volume: 0,
       }, () => {
         this.video.volume = 0;
       })
     } else {
       this.setState({
-        volumeIsMuted: !volumeIsMuted,
+        volumeIsMute: !volumeIsMute,
         volume: prevVolume,
       }, () => {
         this.video.volume = prevVolume;
       });
     }
+  }
+
+  handleFullScreen = (event) => {
+    if(!document.webkitIsFullScreen) {
+      this.player.webkitRequestFullscreen();
+    } else {
+      document.webkitExitFullscreen();
+    }
+  }
+
+  setRef = (element) => {
+    this.player = element;
   }
 
   componentDidMount() {
@@ -101,10 +114,11 @@ class VideoPlayer extends Component {
       currentTime,
       loading,
       volume,
+      volumeIsMute,
     } = this.state;
     const { autoPlay } = this.props;
     return (
-      <VideoPlayerLayout>
+      <VideoPlayerLayout setRef={this.setRef}>
         <Title
           title={'Esto es un video'}
         />
@@ -123,9 +137,13 @@ class VideoPlayer extends Component {
             handleProgressChange={this.handleProgressChange}
           />
           <Volume
+            volumeIsMute={volumeIsMute}
             volumeValue={volume}
             handleVolumeChange={this.handleVolumeChange}
-            checkVolumeIsMuted={this.checkVolumeIsMuted}
+            checkVolumeIsMute={this.checkVolumeIsMute}
+          />
+          <FullScreen
+            handleFullScreen={this.handleFullScreen}
           />
         </Controls>
         { loading && <Spinner /> }
