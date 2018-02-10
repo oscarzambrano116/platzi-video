@@ -3,8 +3,10 @@ import VolumeIcon from '../../icons/components/volume';
 import './volume.css';
 
 const Volume = (props) => (
-  <button className="Volume">
-    <VolumeIcon />
+  <div className="Volume">
+    <div onClick={props.checkVolumeIsMuted}>
+      <VolumeIcon />
+    </div>
     <div className="Volume-range">
       <input
         type="range"
@@ -12,9 +14,10 @@ const Volume = (props) => (
         max={1}
         step={.05}
         onChange={props.handleVolumeChange}
+        value={props.volumeValue}
       />
     </div>
-  </button>
+  </div>
 );
 
 export default Volume;
