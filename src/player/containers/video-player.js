@@ -116,11 +116,15 @@ class VideoPlayer extends Component {
       volume,
       volumeIsMute,
     } = this.state;
-    const { autoPlay } = this.props;
+    const {
+      title,
+      autoPlay,
+      src,
+    } = this.props;
     return (
       <VideoPlayerLayout setRef={this.setRef}>
         <Title
-          title={'Esto es un video'}
+          title={title}
         />
         <Controls>
           <PlayPause
@@ -150,7 +154,7 @@ class VideoPlayer extends Component {
         <Video
           autoPlay={autoPlay}
           pause={pause}
-          src={'http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4'}
+          src={src}
           handleLoadedMetadata={this.handleLoadedMetadata}
           handleTimeUpdate={this.handleTimeUpdate}
           handleSeeking={this.handleSeeking}

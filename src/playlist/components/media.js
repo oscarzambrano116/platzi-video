@@ -3,15 +3,19 @@ import PropTypes from 'prop-types';
 import './media.css';
 
 class Media extends PureComponent {
+  handleClick = (event) => {
+    const { openModal } = this.props;
+    openModal(this.props);
+  }
+
   render() {
     const {
       cover,
       title,
       author,
-      handleClick,
     } = this.props;
     return (
-      <div className="Media" onClick={handleClick}>
+      <div className="Media" onClick={this.handleClick}>
         <div className="Media-cover">
           <img
             src={cover}
@@ -33,7 +37,7 @@ Media.propTypes = {
   title: PropTypes.string.isRequired,
   author: PropTypes.string,
   type: PropTypes.oneOf(['audio', 'video']),
-  handleClick: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired,
 }
 
 export default Media;

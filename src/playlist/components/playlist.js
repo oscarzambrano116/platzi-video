@@ -15,7 +15,7 @@ const Playlist = (props) => {
           <Media
             {...item}
             key={item.id}
-            handleClick={handleOpenModal}
+            openModal={handleOpenModal}
           />
         ))
       }
