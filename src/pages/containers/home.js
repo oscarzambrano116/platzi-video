@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import HomeLayout from '../components/home-layout';
 import Categories from '../../categories/components/categories';
 import Related from '../components/related';
@@ -36,9 +37,7 @@ class Home extends Component {
 
   render() {
     const {
-      data: {
-        categories,
-      },
+      categories,
     } = this.props;
     const {
       modalVisible,
@@ -74,7 +73,13 @@ class Home extends Component {
 };
 
 Home.propTypes = {
-  data: PropTypes.object.isRequired,
+  categories: PropTypes.array.isRequired,
 };
 
-export default Home;
+function mapStateToProps(state, props) {
+  return {
+    categories: state.data.categories,
+  }
+}
+
+export default connect(mapStateToProps)(Home);
