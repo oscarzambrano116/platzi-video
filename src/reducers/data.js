@@ -4,14 +4,16 @@ function data(state, action) {
       const query = action.payload.query;
       const categories = state.data.categories;
       let results = [];
-      categories.map((category) => {
-        results = results.concat(
-          category.playlist.filter((item) => {
-            const author = item.author.toLowerCase();
-            return author.includes(query);
-          })
-        );
-      });
+      if (query) {
+        categories.map((category) => {
+          results = results.concat(
+            category.playlist.filter((item) => {
+              const author = item.author.toLowerCase();
+              return author.includes(query);
+            })
+          );
+        });
+      }
       return {
         ...state,
         search: results,

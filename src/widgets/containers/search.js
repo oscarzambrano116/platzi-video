@@ -11,7 +11,6 @@ class SearchContainer extends Component {
     event.preventDefault();
     const { dispatch } = this.props;
     const query = this.input.value.toLowerCase();
-    console.log(query);
     dispatch({
       type: 'SEARCH_VIDEO',
       payload: {

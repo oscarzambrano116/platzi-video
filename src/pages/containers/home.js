@@ -38,6 +38,7 @@ class Home extends Component {
   render() {
     const {
       categories,
+      search,
     } = this.props;
     const {
       modalVisible,
@@ -48,8 +49,9 @@ class Home extends Component {
         <HomeLayout>
           <Related />
           <Categories
-            categories={categories}
             handleOpenModal={this.handleOpenModal}
+            categories={categories}
+            search={search}
           />
           {
             modalVisible && (
@@ -74,11 +76,13 @@ class Home extends Component {
 
 Home.propTypes = {
   categories: PropTypes.array.isRequired,
+  search: PropTypes.array,
 };
 
 function mapStateToProps(state, props) {
   return {
     categories: state.data.categories,
+    search: state.search,
   }
 }
 
