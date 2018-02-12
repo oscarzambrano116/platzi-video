@@ -5,6 +5,9 @@ import { Provider } from 'react-redux';
 import Home from '../pages/containers/home';
 import data from '../api.json';
 import reducer from '../reducers/data';
+import normalizedData from '../schemas/index';
+
+console.log(normalizedData);
 
 const initialState = {
   data: {
