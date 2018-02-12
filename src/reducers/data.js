@@ -2,11 +2,16 @@ function data(state, action) {
   switch(action.type) {
     case 'SEARCH_VIDEO': {
       const query = action.payload.query;
-      const list = state.data.categories[2].playlist;
-      const results = list.filter((item) => {
-        const author = item.author.toLowerCase();
-        return author.includes(query);
-      })
+      const categories = state.data.categories;
+      let results = [];
+      categories.map((category) => {
+        results = results.concat(
+          category.playlist.filter((item) => {
+            const author = item.author.toLowerCase();
+            return author.includes(query);
+          })
+        );
+      });
       return {
         ...state,
         search: results,
