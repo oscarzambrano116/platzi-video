@@ -80,8 +80,13 @@ Home.propTypes = {
 };
 
 function mapStateToProps(state, props) {
+  const categoriesData = state.data.categories;
+  const entitiesData = state.data.entities.categories;
+  const categories = categoriesData.map((categoryId) => {
+    return entitiesData[categoryId];
+  });
   return {
-    categories: state.data.categories,
+    categories,
     search: state.search,
   }
 }
