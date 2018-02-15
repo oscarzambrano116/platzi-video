@@ -3,20 +3,24 @@ import { render } from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import Home from '../pages/containers/home';
-import reducer from '../reducers/data';
+import reducer from '../reducers/index';
 import data from '../schemas/index';
 
-const initialState = {
-  data: {
-    entities: data.entities,
-    categories: data.result.categories,
-  },
-  search: [],
-};
+// const initialState = {
+//   data: {
+//     entities: data.entities,
+//     categories: data.result.categories,
+//     search: [],
+//   },
+//   modal: {
+//     visibility: false,
+//     mediaId: null,
+//   }
+// };
 
 const store = createStore(
   reducer,
-  initialState,
+  {},
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 
