@@ -9,8 +9,7 @@ import ModalContainer from '../../widgets/containers/modal';
 import Modal from '../../widgets/components/modal';
 import HandleError from '../../error/containers/handle-error';
 import VideoPlayer from '../../player/containers/video-player';
-import * as actions from '../../actions/index';
-import { bindActionCreators } from 'redux';
+import { openModal, closeModal } from '../../actions/index';
 
 class Home extends Component {
   componentDidCatch(error, info) {
@@ -20,13 +19,13 @@ class Home extends Component {
   }
 
   handleOpenModal = (id) => {
-    const { actions } = this.props;
-    actions.openModal(id);
+    const { openModal } = this.props;
+    openModal(id);
   }
 
   handleCloseModal = () => {
-    const { actions } = this.props;
-    actions.closeModal();
+    const { closeModal } = this.props;
+    closeModal();
   }
 
   render() {
@@ -85,10 +84,10 @@ function mapStateToProps(state, props) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(actions, dispatch)
-  };
-}
+// Importing actions as properties with mapDispatchToProps
+const mapDispatchToProps = {
+  openModal,
+  closeModal,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

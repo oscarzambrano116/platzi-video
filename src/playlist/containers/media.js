@@ -36,6 +36,7 @@ function mapStateToProps(state, props) {
   }
 }
 
+// mapDispatchToProps example with bindActionCreators
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(actions, dispatch),
