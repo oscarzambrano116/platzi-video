@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { List as list } from 'immutable';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import HomeLayout from '../components/home-layout';
@@ -78,9 +79,19 @@ function mapStateToProps(state, props) {
   const categories = state.getIn(['data', 'categories']).map((categoryId) => {
     return state.getIn(['data', 'entities', 'categories', categoryId]);
   });
+
+  let searchResults = list();
+  const search = state.getIn(['data', 'search']);
+  if (search) {
+    const mediaList = state.getIn(['data', 'entities', 'media']);
+    searchResults = mediaList.filter((item) => {
+      return item.get('author').toLowerCase().includes(search.toLowerCase());
+    }).toList();
+  }
+
   return {
     categories,
-    search: state.getIn(['data', 'search']),
+    search: searchResults,
   }
 }
 

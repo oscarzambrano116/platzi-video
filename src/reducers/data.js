@@ -4,30 +4,13 @@ import schema from '../schemas/index';
 const initialState = fromJS({
   entities: schema.entities,
   categories: schema.result.categories,
-  search: [],
+  search: '',
 });
 
 function data(state = initialState, action) {
   switch(action.type) {
-    case 'SEARCH_VIDEO': {
-      const query = action.payload.query;
-      const categories = state.schema.categories;
-      let results = [];
-      if (query) {
-        categories.map((category) => {
-          results = results.concat(
-            category.playlist.filter((item) => {
-              const author = item.author.toLowerCase();
-              return author.includes(query);
-            })
-          );
-        });
-      }
-      return {
-        ...state,
-        search: results,
-      }
-    }
+    case 'SEARCH_VIDEO':
+      return state.set('search', action.payload.query);
     default:
       return state;
   }
