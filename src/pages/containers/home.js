@@ -9,7 +9,8 @@ import ModalContainer from '../../widgets/containers/modal';
 import Modal from '../../widgets/components/modal';
 import HandleError from '../../error/containers/handle-error';
 import VideoPlayer from '../../player/containers/video-player';
-import { openModal, closeModal } from '../../actions/index';
+import * as actions from '../../actions/index';
+import { bindActionCreators } from 'redux';
 
 class Home extends Component {
   componentDidCatch(error, info) {
@@ -19,13 +20,13 @@ class Home extends Component {
   }
 
   handleOpenModal = (id) => {
-    const { dispatch } = this.props;
-    dispatch(openModal(id));
+    const { actions } = this.props;
+    actions.openModal(id);
   }
 
   handleCloseModal = () => {
-    const { dispatch } = this.props;
-    dispatch(closeModal());
+    const { actions } = this.props;
+    actions.closeModal();
   }
 
   render() {
@@ -81,7 +82,13 @@ function mapStateToProps(state, props) {
     categories,
     search: searchResults,
     modal: state.get('modal'),
-  }
+  };
 }
 
-export default connect(mapStateToProps)(Home);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
