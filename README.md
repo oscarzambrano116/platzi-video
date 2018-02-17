@@ -1,7 +1,7 @@
 # platzi-video
 
 
-## React branch
+## Develop branch
 React platzi course
 
 ## Redux branch
