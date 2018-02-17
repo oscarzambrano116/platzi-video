@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import VideoPlayerLayout from '../components/video-player-layout';
 import Video from '../components/video';
 import Title from '../components/title';
@@ -117,14 +118,13 @@ class VideoPlayer extends Component {
       volumeIsMute,
     } = this.state;
     const {
-      title,
       autoPlay,
-      src,
+      media,
     } = this.props;
     return (
       <VideoPlayerLayout setRef={this.setRef}>
         <Title
-          title={title}
+          title={media.get('title')}
         />
         <Controls>
           <PlayPause
@@ -154,7 +154,7 @@ class VideoPlayer extends Component {
         <Video
           autoPlay={autoPlay}
           pause={pause}
-          src={src}
+          src={media.get('src')}
           handleLoadedMetadata={this.handleLoadedMetadata}
           handleTimeUpdate={this.handleTimeUpdate}
           handleSeeking={this.handleSeeking}
@@ -165,4 +165,10 @@ class VideoPlayer extends Component {
   }
 }
 
-export default VideoPlayer;
+function mapStateToProps(state, props) {
+  return {
+    media: state.getIn(['data', 'entities', 'media', props.id]),
+  }
+}
+
+export default connect(mapStateToProps)(VideoPlayer);

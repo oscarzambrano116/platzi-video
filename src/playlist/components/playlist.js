@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Media from './media';
+import MediaContainer from '../containers/media';
 import './playlist.css';
 
 const Playlist = (props) => {
@@ -11,10 +11,10 @@ const Playlist = (props) => {
   return (
     <div className="Playlist">
       {
-        playlist.map((item) => (
-          <Media
-            {...item}
-            key={item.id}
+        playlist.map((mediaId) => (
+          <MediaContainer
+            key={mediaId}
+            id={mediaId}
             openModal={handleOpenModal}
           />
         ))
