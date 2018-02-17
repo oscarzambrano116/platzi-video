@@ -9,61 +9,49 @@ import ModalContainer from '../../widgets/containers/modal';
 import Modal from '../../widgets/components/modal';
 import HandleError from '../../error/containers/handle-error';
 import VideoPlayer from '../../player/containers/video-player';
+import { openModal, closeModal } from '../../actions/index';
 
 class Home extends Component {
-  state = {
-    modalVisible: false,
-    media: null,
-  };
-
-  handleOpenModal = (media) => {
-    this.setState({
-      modalVisible: true,
-      media,
-    });
-  }
-
-  handleCloseModal= (event) => {
-    this.setState({
-      modalVisible: false,
-      media: null,
-    });
-  }
-
   componentDidCatch(error, info) {
     this.setState({
       handleError: true,
     });
   }
 
+  handleOpenModal = (id) => {
+    const { dispatch } = this.props;
+    dispatch(openModal(id));
+  }
+
+  handleCloseModal = () => {
+    const { dispatch } = this.props;
+    dispatch(closeModal());
+  }
+
   render() {
     const {
       categories,
       search,
+      modal,
     } = this.props;
-    const {
-      modalVisible,
-      media,
-    } = this.state;
     return(
       <HandleError>
         <HomeLayout>
           <Related />
           <Categories
-            handleOpenModal={this.handleOpenModal}
             categories={categories}
             search={search}
+            handleOpenModal={this.handleOpenModal}
           />
           {
-            modalVisible && (
+            modal.get('visibility') && (
               <ModalContainer>
                 <Modal
                   handleClick={this.handleCloseModal}
                 >
                   <VideoPlayer
-                    title={media.title}
                     autoPlay
-                    src={media.src}
+                    id={modal.get('mediaId')}
                   />
                 </Modal>
               </ModalContainer>
@@ -92,6 +80,7 @@ function mapStateToProps(state, props) {
   return {
     categories,
     search: searchResults,
+    modal: state.get('modal'),
   }
 }
 

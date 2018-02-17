@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Search from '../components/search';
 import { connect } from 'react-redux';
+import { searchEntities } from '../../actions/index';
 
 class SearchContainer extends Component {
   state = {
@@ -11,12 +12,7 @@ class SearchContainer extends Component {
     event.preventDefault();
     const { dispatch } = this.props;
     const query = this.input.value.toLowerCase();
-    dispatch({
-      type: 'SEARCH_VIDEO',
-      payload: {
-        query,
-      },
-    });
+    dispatch(searchEntities(query));
   }
 
   setInputRef = (element) => {

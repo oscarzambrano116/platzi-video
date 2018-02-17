@@ -2,8 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Media from '../components/media';
+import { openModal } from '../../actions/index';
 
 class MediaContainer extends Component {
+
+  openModal = (id) => {
+    const { dispatch } = this.props;
+    dispatch(openModal(id));
+  }
+
   render() {
     const {
       data,
@@ -12,7 +19,7 @@ class MediaContainer extends Component {
     return (
       <Media
         {...data.toJS()}
-        openModal={openModal}
+        openModal={this.openModal}
       />
     );
   }
@@ -20,8 +27,6 @@ class MediaContainer extends Component {
 
 MediaContainer.propTypes = {
   data: PropTypes.object.isRequired,
-  openModal: PropTypes.func.isRequired,
-
 };
 
 function mapStateToProps(state, props) {
