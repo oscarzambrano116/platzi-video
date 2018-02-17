@@ -15,8 +15,8 @@ function Categories(props) {
     search.map((item) => {
       return (
         <Media
-          key={item.id}
-          {...item}
+          key={item.get('id')}
+          {...item.toJS()}
           openModal={handleOpenModal}
         />
       )
@@ -26,8 +26,8 @@ function Categories(props) {
     categories.map((item) => {
       return (
         <Category
-          key={item.id}
-          {...item}
+          key={item.get('id')}
+          {...item.toJS()}
           handleOpenModal={handleOpenModal}
         />
       )
@@ -37,15 +37,10 @@ function Categories(props) {
     <div className="Categories">
       <SearchContainer />
       {
-        search.length ? searchList : allCategories
+        search.size ? searchList : allCategories
       }
     </div>
   );
 }
-
-Categories.propTypes = {
-  categories: PropTypes.array.isRequired,
-  handleOpenModal: PropTypes.func.isRequired,
-};
 
 export default Categories;

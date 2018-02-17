@@ -74,20 +74,13 @@ class Home extends Component {
   }
 };
 
-Home.propTypes = {
-  categories: PropTypes.array.isRequired,
-  search: PropTypes.array,
-};
-
 function mapStateToProps(state, props) {
-  const categoriesData = state.data.categories;
-  const entitiesData = state.data.entities.categories;
-  const categories = categoriesData.map((categoryId) => {
-    return entitiesData[categoryId];
+  const categories = state.get('data').get('categories').map((categoryId) => {
+    return state.get('data').get('entities').get('categories').get(categoryId);
   });
   return {
     categories,
-    search: state.data.search,
+    search: state.get('data').get('search'),
   }
 }
 
