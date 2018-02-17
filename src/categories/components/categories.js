@@ -10,6 +10,7 @@ function Categories(props) {
     categories,
     search,
     handleOpenModal,
+    isLoading,
   } = props;
   const searchList = (
     search.map((item) => {
@@ -36,9 +37,9 @@ function Categories(props) {
   return (
     <div className="Categories">
       <SearchContainer />
-      {
-        search.size ? searchList : allCategories
-      }
+      { isLoading && <p>{'Buscando tus videos favoritos...'}</p>}
+      {searchList}
+      {allCategories}
     </div>
   );
 }

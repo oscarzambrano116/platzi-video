@@ -9,7 +9,11 @@ import ModalContainer from '../../widgets/containers/modal';
 import Modal from '../../widgets/components/modal';
 import HandleError from '../../error/containers/handle-error';
 import VideoPlayer from '../../player/containers/video-player';
-import { openModal, closeModal } from '../../actions/index';
+import {
+  openModal,
+  closeModal,
+  isLoading,
+} from '../../actions/index';
 
 class Home extends Component {
   componentDidCatch(error, info) {
@@ -33,6 +37,7 @@ class Home extends Component {
       categories,
       search,
       modal,
+      isLoading,
     } = this.props;
     return(
       <HandleError>
@@ -42,6 +47,7 @@ class Home extends Component {
             categories={categories}
             search={search}
             handleOpenModal={this.handleOpenModal}
+            isLoading={isLoading}
           />
           {
             modal.get('visibility') && (
@@ -81,6 +87,7 @@ function mapStateToProps(state, props) {
     categories,
     search: searchResults,
     modal: state.get('modal'),
+    isLoading: state.getIn(['isLoading', 'active']),
   };
 }
 
