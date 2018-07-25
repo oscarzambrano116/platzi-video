@@ -141,5 +141,6 @@
         }
       ]
     }
-  ]
+  ],
+  "logo": "./images/logo.png"
 }
